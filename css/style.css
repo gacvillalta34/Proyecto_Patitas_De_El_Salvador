@@ -139,14 +139,12 @@ nav{
 }
 
 .contenedorContacto{
+    width: 100%;
     padding: 40px 70px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
 }
 
 .texto2{
-    width: 60%;
+    width: 65%;
     text-align: center;
     font-weight: bold;
     font-size: 35px;
@@ -207,6 +205,7 @@ footer{
     width: 100%;
     padding: 0px 15px 0px 15px; /*top right bottom left*/
     text-align: center;
+    line-height: 1.5;
 }
 
 .parrafo{
@@ -247,7 +246,6 @@ button{
 
 .contenedor button:hover {
     background-color: rgb(0, 151, 0); /* Cambia al color de fondo deseado cuando se coloca el cursor */
-    color: #FFF;
 }
 
 .caja{
@@ -260,11 +258,41 @@ button{
     align-items: center;
 }
 
-.contactos{
-    
-}
-
 #formulario{
     display: flex;
     justify-content: center;
+}
+
+.fondo{
+    background-image: url('../img/fondo2.jpg');
+    background-size: cover; /*Ajustar el ancho de fondo al ancho de la sección*/
+    background-position: center; /*centrar la imagen*/
+}
+
+.fondoEncima{
+    background-color:rgba(255, 255, 255, 0.4);
+}
+
+.primertexto{
+    line-height: 1.5;
+}
+
+/* Boton de enviar */
+.alinearBoton{
+    text-align: center;
+}
+
+.boton{
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    background-color: #db5000;
+    color: white;
+    font-weight: 600;
+}
+
+.boton:hover {
+    background-color: rgb(0, 151, 0); /* Cambia al color de fondo deseado cuando se coloca el cursor */
+    cursor: pointer; /*cambiar cursor*/
 }
