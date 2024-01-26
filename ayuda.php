@@ -1,3 +1,55 @@
+<?php
+// Conexión de la base de datos
+include 'conexion.php';
+
+// Procesar el formulario si se ha enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verificar si se han enviado los datos del formulario
+    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['genero']) && isset($_POST['correo']) && isset($_POST['numero']) && isset($_POST['direccion']) && isset($_POST['tipo_ayuda'])) {
+        // Procesar datos del formulario
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $correo = $_POST['correo'];
+        $telefono = $_POST['numero'];
+        $direccion = $_POST['direccion'];
+
+        // Verificar el género seleccionado
+        if (isset($_POST['genero'])) {
+            $genero = $_POST['genero'];
+        }
+        
+        // Verificar si se ha seleccionado una forma de ayuda
+        if (isset($_POST['tipo_ayuda'])) {
+            $tipo_ayuda = $_POST['tipo_ayuda'];
+        }
+
+        // Insertar datos en la tabla "Personas"
+        $sql_personas = "INSERT INTO tbl_persona (nombres, apellidos, genero, direccion, correo, telefono) VALUES ('$nombre', '$apellido', '$genero', '$direccion', '$correo', '$telefono')";
+        
+        if (mysqli_query($conexion, $sql_personas)) {
+            // Obtener el ID generado para la persona insertada
+            $id_persona = mysqli_insert_id($conexion);
+
+            // Insertar datos en la tabla "Ayuda"
+            $sql_ayuda = "INSERT INTO tbl_ayuda (tipo_ayuda, id_persona) VALUES ('$tipo_ayuda', '$id_persona')";
+
+            if (mysqli_query($conexion, $sql_ayuda)) {
+                // Mostrar mensaje emergente
+                echo "<script>alert('Los datos han sido enviados exitosamente, nuestro equipo se comunicará con usted');</script>";
+            } else {
+                echo "Error al insertar datos: " . mysqli_error($conexion);
+            }
+        } else {
+            echo "Error al insertar datos en el formulario: " . mysqli_error($conexion);
+        }
+    } else {
+        echo "Por favor, completa todos los campos del formulario.";
+    }
+}
+?>
+
+
+<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -17,6 +69,13 @@
         <!-- Icono de Pestaña -->
         <link rel="icon" href="img/logo.png" type="image/x-icon">
 
+        <!-- Cambiar cursor en los radio buttons -->
+        <style>
+            input[type="radio"], label[for="masculino"], label[for="femenino"], label[for="opcion1"], label[for="opcion2"], label[for="opcion3"] {
+                cursor: pointer; 
+            }
+        </style>
+
     </head>
     <body>
         <!-- Barra de navegación -->
@@ -27,10 +86,10 @@
                 </div>
                 <div class="menu">
                     <ul>
-                        <li><a href="index.html" class="items">INICIO</a></li>
-                        <li><a href="patitassv.html" class="items">SOBRE NOSOTROS</a></li>
-                        <li><a href="ayuda.html" class="items">AYUDA</a></li>
-                        <li><a href="adopta.html" class="items">ADOPTA</a></li> 
+                        <li><a href="index.php" class="items">INICIO</a></li>
+                        <li><a href="patitassv.php" class="items">SOBRE NOSOTROS</a></li>
+                        <li><a href="ayuda.php" class="items">AYUDA</a></li>
+                        <li><a href="adopta.php" class="items">ADOPTA</a></li> 
                     </ul>
                 </div>
             </nav>
@@ -72,7 +131,7 @@
                     <!-- Formulario -->
                     <section id="formulario">            
                         <div>
-                            <form action="">
+                            <form method="post">
                                 <table>
                                     <tr>
                                         <td><label for="nombre">Nombres: </label><br><br></td>
@@ -87,12 +146,12 @@
                                             <label for="genero">Género: </label><br><br>
                                         </td>    
                                         <td>
-                                            <input type="radio" id="masculino" name="masculino">
-                                            <label for="masculino">Masculino</label>                                            
-                                            &nbsp;&nbsp;
-                                            <input type="radio" id="femenino" name="femenino">
-                                            <label for="femenino">Femenino</label>
-                                            <br><br>
+                                           <input type="radio" id="masculino" name="genero" value="Masculino">
+                                           <label for="masculino">Masculino</label>                                            
+                                           &nbsp;&nbsp;
+                                           <input type="radio" id="femenino" name="genero" value="Femenino">
+                                           <label for="femenino">Femenino</label>
+                                           <br><br>
                                         </td>                                    
                                     </tr>
                                     <tr>
@@ -101,10 +160,10 @@
                                     </tr>
                                     <tr>
                                         <td><label for="correo">Correo: </label><br><br></td>
-                                        <td><input type="correo" id="correo" maxlength="100" required name="correo"><br><br></td>
+                                        <td><input type="email" id="correo" maxlength="100" required name="correo"><br><br></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="numero">Número: </label><br><br></td>
+                                        <td><label for="numero">Teléfono: </label><br><br></td>
                                         <td><input type="text" id="numero" maxlength="15" required name="numero"><br><br></td>
                                     </tr> 
                                     <tr>
@@ -114,24 +173,24 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                        <input type="radio" id="opcion1" name="opcion1">
-                                        <label for="opcion1">Donación Monetaria</label>
-                                        <br><br>
+                                            <input type="radio" id="opcion1" name="tipo_ayuda" value="Donación Monetaria">
+                                            <label for="opcion1">Donación Monetaria</label>
+                                            <br><br>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="radio" id="opcion2" name="opcion2">
+                                            <input type="radio" id="opcion2" name="tipo_ayuda" value="Donación de Suministros">
                                             <label for="opcion2">Donación de Suministros</label>
                                             <br><br>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <input type="radio" id="opcion3" name="opcion3">
+                                            <input type="radio" id="opcion3" name="tipo_ayuda" value="Siendo voluntario">
                                             <label for="opcion3">Siendo voluntario</label>
                                             <br><br>
-                                        </td>
+                                            </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">

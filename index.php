@@ -29,9 +29,9 @@
                 <div class="menu">
                     <ul>
                         <li><a href="#inicio" class="items">INICIO</a></li>
-                        <li><a href="patitassv.html" class="items">SOBRE NOSOTROS</a></li>
-                        <li><a href="ayuda.html" class="items">AYUDA</a></li>
-                        <li><a href="adopta.html" class="items">ADOPTA</a></li>                        
+                        <li><a href="patitassv.php" class="items">SOBRE NOSOTROS</a></li>
+                        <li><a href="ayuda.php" class="items">AYUDA</a></li>
+                        <li><a href="adopta.php" class="items">ADOPTA</a></li>                        
                     </ul>
                 </div>
             </nav>
