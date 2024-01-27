@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_query($conexion, $sql_ayuda)) {
                 // Mostrar mensaje emergente
                 echo "<script>alert('Los datos han sido enviados exitosamente, nuestro equipo se comunicará con usted');</script>";
-                echo '<script> window.location="adopta.php"; </script>';
+                echo '<script> window.location="ayuda.php"; </script>';
             } else {
                 echo "Error al insertar datos: " . mysqli_error($conexion);
             }
