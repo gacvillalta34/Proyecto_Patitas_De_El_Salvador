@@ -49,14 +49,14 @@
         <!-- Sección de Ayuda -->
         <section id="ayuda">
             <div class="contenedorAyuda">
-                <p class="texto1">SI QUIERES ADOPTAR A UN PELUDO HAZLO <a href="adopta.html" class="link1">AQUÍ</a></p>
+                <p class="texto1">SI QUIERES ADOPTAR A UN PELUDO HAZLO <a href="adopta.php" class="link1">AQUÍ</a></p>
             </div>
         </section>
 
         <!-- Sección de Contacto -->
         <section id="contacto">
             <div class="contenedorContacto">
-                <p class="texto2">¿TE INTERESA AYUDAR A PERROS Y GATOS EN SITUACIÓN DE CALLE? HAZLO <a href="ayuda.html" class="link2">AQUÍ</a>                  
+                <p class="texto2">¿TE INTERESA AYUDAR A PERROS Y GATOS EN SITUACIÓN DE CALLE? HAZLO <a href="ayuda.php" class="link2">AQUÍ</a>                  
                 </p> 
             </div>
         </section>        
